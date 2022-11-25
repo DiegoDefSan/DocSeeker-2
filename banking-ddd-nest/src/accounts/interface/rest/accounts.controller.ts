@@ -11,15 +11,13 @@ import { GetAccounts } from '../../application/messages/queries/get-accounts.que
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
 @Controller('accounts')
-@ApiTags('accounts')
+
 export class AccountsController {
   constructor(
     private readonly accountsApplicationService: AccountsApplicationService,
     private readonly queryBus: QueryBus
   ) {}
 
-  @Post()
-  @ApiOperation({ summary: 'Open Account' })
   async open(
     @Body() openAccountRequest: OpenAccountRequest,
     @Res({ passthrough: true }) response
@@ -35,7 +33,6 @@ export class AccountsController {
     }
   }
 
-  @Get()
   async getAll(@Res({ passthrough: true }) response): Promise<object> {
     try {
       const accounts = await this.queryBus.execute(new GetAccounts());
@@ -44,8 +41,7 @@ export class AccountsController {
       return ApiController.serverError(response, error);
     }
   }
-
-  @Get('/:id')
+  
   async getById(@Param('id') accountId: number, @Res({ passthrough: true }) response): Promise<object> {
     try {
       const accountDto = await this.queryBus.execute(new GetAccountById(accountId));
