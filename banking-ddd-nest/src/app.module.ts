@@ -10,7 +10,7 @@ import { NotificationsModule } from './notifications/notifications.module';
   imports: [
     TypeOrmModule.forRoot({
       type: "mysql",
-      url: 'mysql://root:71950810@localhost:3306/docseeker-ddd',
+      url: 'mysql://root:puercoconalas7350@@localhost:3306/docseeker-ddd',
       migrationsRun: true,
       logging: true,
       timezone: '+00:00',
