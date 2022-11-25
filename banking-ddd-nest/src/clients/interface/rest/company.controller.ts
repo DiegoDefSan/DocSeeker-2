@@ -10,15 +10,13 @@ import { GetCompanyClients } from 'src/clients/application/messages/queries/get-
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
 @Controller('clients/company')
-@ApiTags('company clients')
 export class CompanyController {
   constructor(
     private readonly companyApplicationService: CompanyApplicationService,
     private readonly queryBus: QueryBus
   ) {}
 
-  @Post('')
-  @ApiOperation({ summary: 'Register Company Client' })
+  
   async register(
     @Body() registerCompanyRequest: RegisterCompanyRequest,
     @Res({ passthrough: true }) response
@@ -34,7 +32,6 @@ export class CompanyController {
     }
   }
 
-  @Get('')
   async getAll(@Res({ passthrough: true }) response): Promise<object> {
     try {
       const customers = await this.queryBus.execute(new GetCompanyClients());
@@ -44,7 +41,6 @@ export class CompanyController {
     }
   }
 
-  @Get('/:id')
   async getById(@Param('id') id: number, @Res({ passthrough: true }) response): Promise<object> {
     try {
       const person = await this.companyApplicationService.getById(id);
