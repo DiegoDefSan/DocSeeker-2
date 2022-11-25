@@ -1,13 +1,13 @@
 import { CommandBus, IEventHandler } from '@nestjs/cqrs';
 import { EventsHandler } from '@nestjs/cqrs/dist/decorators/events-handler.decorator';
-import { MoneyDeposited } from '../../../../transactions/domain/events/money-deposited.event';
+import { MoneyDeposited } from '../../../../payments/domain/events/money-deposited.event';
 import { DataSource } from 'typeorm';
 import { Account } from '../../../domain/aggregates/account/account.root.entity';
 import { Result } from 'typescript-result';
 import { AppNotification } from '../../../../shared/application/app.notification';
 import { Money } from '../../../../shared/domain/values/money.value';
 import { Currency } from '../../../../shared/domain/enums/currency.enum';
-import { CompleteTransaction } from '../../../../transactions/application/messages/commands/complete-transaction.command';
+import { CompletePayment } from '../../../../payments/application/messages/commands/complete-payment.command';
 import { Inject } from '@nestjs/common';
 import { AccountRepository, ACCOUNT_REPOSITORY } from 'src/accounts/domain/aggregates/account/account.repository';
 
@@ -32,8 +32,8 @@ export class MoneyDepositedHandler implements IEventHandler<MoneyDeposited> {
     try {
       account = await this.accountRepository.update(account);
       if (account == null) throw new Error("");
-      const completeTransaction: CompleteTransaction = new CompleteTransaction(event.transactionId);
-      await this.commandBus.execute(completeTransaction);
+      const completePayment: CompletePayment = new CompletePayment(event.paymentId);
+      await this.commandBus.execute(completePayment);
       await queryRunner.commitTransaction();
     } catch(err) {
       await queryRunner.rollbackTransaction();

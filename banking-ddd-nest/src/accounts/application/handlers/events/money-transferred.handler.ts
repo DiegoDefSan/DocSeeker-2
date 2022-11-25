@@ -4,8 +4,8 @@ import { DataSource } from 'typeorm';
 import { Account } from '../../../domain/aggregates/account/account.root.entity';
 import { Money } from '../../../../shared/domain/values/money.value';
 import { Currency } from '../../../../shared/domain/enums/currency.enum';
-import { MoneyTransferred } from '../../../../transactions/domain/events/money-transferred.event';
-import { CompleteTransaction } from '../../../../transactions/application/messages/commands/complete-transaction.command';
+import { MoneyTransferred } from '../../../../payments/domain/events/money-transferred.event';
+import { CompletePayment } from '../../../../payments/application/messages/commands/complete-payment.command';
 import { MoneyTransferService } from 'src/accounts/domain/services/money-transfer.service';
 import { Inject } from '@nestjs/common';
 import { AccountRepository, ACCOUNT_REPOSITORY } from 'src/accounts/domain/aggregates/account/account.repository';
@@ -34,8 +34,8 @@ export class MoneyTransferredHandler implements IEventHandler<MoneyTransferred> 
     try {
       await this.accountRepository.update(fromAccount);
       await this.accountRepository.update(toAccount);
-      const completeTransaction: CompleteTransaction = new CompleteTransaction(event.transactionId);
-      await this.commandBus.execute(completeTransaction);
+      const completePayment: CompletePayment = new CompletePayment(event.transactionId);
+      await this.commandBus.execute(completePayment);
       await queryRunner.commitTransaction();
     } catch(err) {
       await queryRunner.rollbackTransaction();

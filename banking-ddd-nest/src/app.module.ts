@@ -3,7 +3,7 @@ import { AppController } from './app.controller';
 import { ClientsModule } from './clients/clients.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AccountsModule } from './accounts/accounts.module';
-import { TransactionsModule } from './transactions/transactions.module';
+import { PaymentsModule } from './payments/payment.module';
 import { NotificationsModule } from './notifications/notifications.module';
 
 @Module({
@@ -30,7 +30,7 @@ import { NotificationsModule } from './notifications/notifications.module';
     }),
     ClientsModule,
     AccountsModule,
-    TransactionsModule,
+    PaymentsModule,
     NotificationsModule
   ],
   controllers: [AppController],
