@@ -1,13 +1,13 @@
 import { Money } from '../../../../shared/domain/values/money.value';
 import { AggregateRoot } from '@nestjs/cqrs';
 import { PaymentId } from './payment-id.value';
-import { AccountId } from '../../../../accounts/domain/aggregates/account/account-id.value';
 import { AuditTrail } from '../../../../shared/domain/values/audit-trail.value';
 import { PaymentType } from '../../enums/payment-type.enum';
 import { PaymentStatus } from '../../enums/payment.status.enum';
 import { MoneyDeposited } from '../../events/money-deposited.event';
 import { MoneyWithdrawn } from '../../events/money-withdrawn.event';
 import { MoneyTransferred } from '../../events/money-transferred.event';
+import { AccountId } from 'src/accounts/domain/aggregates/account/account-id.value';
 
 export class Payment extends AggregateRoot {
   private id: PaymentId;

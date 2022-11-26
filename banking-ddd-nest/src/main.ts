@@ -10,7 +10,7 @@ async function bootstrap() {
     .setVersion('1.0')
     .addTag('patient clients')
     .addTag('doctor clients')
-    .addTag('transactions')
+    .addTag('payments')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
