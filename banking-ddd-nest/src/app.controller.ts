@@ -6,6 +6,6 @@ export class AppController {
 
   @Get()
   get(): string {
-    return 'Banking DDD';
+    return 'DocSeeker DDD';
   }
 }
